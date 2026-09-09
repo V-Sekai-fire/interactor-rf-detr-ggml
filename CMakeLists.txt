@@ -16,9 +16,11 @@ add_library(rfdetr STATIC
     src/keypoints.cpp
     src/loss.cpp
     src/dataset.cpp
+    src/rfdetr_capi.cpp
 )
 target_link_libraries(rfdetr PUBLIC ggml)
-target_include_directories(rfdetr PUBLIC src)
+target_include_directories(rfdetr PUBLIC src include)
+target_compile_definitions(rfdetr PRIVATE RFDETR_BUILD)
 
 foreach(t test_backbone_smoke test_backbone test_backbone_base test_backbone_multi_image test_projector test_projector_multiscale test_deform_attn test_deform_attn_multilevel test_deform_attn_backward test_decoder test_decoder_base test_decoder_small test_decoder_medium test_decoder_large test_decoder_large_deprecated test_segmentation test_segmentation_small test_segmentation_medium test_segmentation_large test_segmentation_xlarge test_segmentation_preview test_keypoints test_norm_backward test_loss)
     add_executable(${t} tests/${t}.cpp)
