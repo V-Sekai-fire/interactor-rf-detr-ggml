@@ -80,7 +80,12 @@ bool Model::load_backend(const char * path, ggml_backend_buffer_type * buft) {
 
 ggml_tensor * Model::get(const std::string & name) const {
     auto it = weights.find(name);
-    if (it == weights.end()) { fprintf(stderr, "missing tensor: %s\n", name.c_str()); exit(1); }
+    // A caller embedding this in a host process (a Godot module) must be able to
+    // report a bad checkpoint, not be terminated by it.
+    if (it == weights.end()) {
+        missing.push_back(name);
+        return nullptr;
+    }
     return it->second;
 }
 

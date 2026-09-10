@@ -209,7 +209,9 @@ DecoderOutput rfdetr_decoder(Model & m, ggml_tensor * memory, const DecoderParam
     } else {
         ggml_tensor * score = ggml_pool_1d(ctx, enc_class, GGML_OP_POOL_MAX, p.num_classes, p.num_classes, 0); // (1,gwh,1)
         ggml_tensor * score1d = ggml_reshape_1d(ctx, ggml_cont(ctx, score), gwh);
-        topk_idx = ggml_reshape_1d(ctx, ggml_top_k(ctx, score1d, p.num_queries), p.num_queries); // I32 (num_queries)
+        // argsort_top_k, not top_k: top_k's indices are documented as unordered and the CPU
+        // kernel swaps the first two, so query slot order would differ by backend.
+        topk_idx = ggml_reshape_1d(ctx, ggml_argsort_top_k(ctx, score1d, p.num_queries), p.num_queries); // I32 (num_queries)
     }
 
     ggml_tensor * ts_boxes = ggml_get_rows(ctx, ggml_reshape_2d(ctx, enc_boxes, 4, gwh), topk_idx); // (4,num_queries)
