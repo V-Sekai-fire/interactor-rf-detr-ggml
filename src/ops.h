@@ -27,8 +27,11 @@ struct Model {
     bool load(const char * path);        // merge tensors from a gguf (host RAM)
     bool load_backend(const char * path, struct ggml_backend_buffer_type * buft);
     std::vector<struct ggml_backend_buffer *> bufs;   // owned backend buffers
-    ggml_tensor * get(const std::string & name) const;   // exits on miss
+    ggml_tensor * get(const std::string & name) const;   // records a miss, returns nullptr
     bool has(const std::string & name) const;
+    bool ok() const { return missing.empty(); }
+    const std::vector<std::string> & missing_tensors() const { return missing; }
+    mutable std::vector<std::string> missing;
 };
 
 // conv + bias; pad 0 for 1x1 convs
