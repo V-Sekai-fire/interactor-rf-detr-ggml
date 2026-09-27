@@ -151,3 +151,10 @@ identically every iteration, matching upstream's single shared modules).
 Open tasks (other segmentation variants, `RFDETRSegPreviewConfig`, and the
 exact amplification-mechanism question) are tracked in
 [`0001-open-work.md`](0001-open-work.md), not duplicated here.
+
+## Parked
+
+- Shelved 2026-09-27: masks through the C ABI. `src/rfdetr_capi.cpp` still
+  returns boxes only; `demos/seg_cli.cpp` drives the C++ internals
+  (backbone, projector, decoder, segmentation head) to get masks. Unpark
+  when a consumer needs masks through the C ABI.
