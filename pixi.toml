@@ -104,10 +104,46 @@ convert-dinov2 = "python scripts/convert_dinov2_to_gguf.py"
 convert-decoder = "python scripts/convert_decoder_to_gguf.py"
 convert-keypoints = "python scripts/convert_keypoints_to_gguf.py"
 
+# THE TRAIN FEATURE, FOR `scripts/finetune_seg.py` AND `scripts/coco_person_subset.py`.
+#
+# Fine-tuning RFDETRSegNano in PyTorch on the Windows RTX 4090 (plan step 3). The only
+# feature with CUDA torch, and the reason it is separate: `reference` and `gate` are CPU on
+# purpose and must stay small, and a cu128 wheel set is several gigabytes that change none
+# of their answers. win-64 and linux-64 only -- there is no CUDA on osx-arm64.
+#
+# `rfdetr[train]` pulls pytorch-lightning, torchmetrics, pycocotools, faster-coco-eval, peft
+# and scipy. `loggers` is deliberately NOT included; finetune_seg.py turns tensorboard off.
+# `gguf` is here so the four convert_*_to_gguf.py scripts can run on the trained .pth
+# from the same environment that wrote it.
+#
+# WHERE IT RUNS. pixi.exe does not work well from a \\wsl.localhost UNC path (no symlinks,
+# slow 9P I/O), so the Windows side is a copy of this manifest + lock + scripts under
+# C:\Users\ernest.lee\AppData\Local\rfdetr-train, synced from WSL; see finetune_seg.py's
+# docstring for the exact commands.
+[feature.train]
+platforms = ["win-64", "linux-64"]
+
+[feature.train.dependencies]
+python = "3.11.*"
+
+[feature.train.pypi-dependencies]
+numpy = ">=1.26"
+torch = { version = ">=2.7", index = "https://download.pytorch.org/whl/cu128" }
+torchvision = { version = "*", index = "https://download.pytorch.org/whl/cu128" }
+rfdetr = { version = ">=1.9.4,<2", extras = ["train"] }
+pycocotools = "*"
+gguf = "*"
+pillow = ">=10"
+
+[feature.train.tasks]
+coco-person-subset = "python scripts/coco_person_subset.py"
+finetune-seg = "python scripts/finetune_seg.py"
+
 [environments]
 gate = { features = ["gate"], no-default-feature = true }
 coreml = { features = ["coreml"], no-default-feature = true }
 reference = { features = ["reference"], no-default-feature = true }
+train = { features = ["train"], no-default-feature = true }
 
 # THE COREML FEATURE, SEPARATE FROM `gate` BECAUSE IT PINS TORCH AND `gate` MUST NOT.
 #
