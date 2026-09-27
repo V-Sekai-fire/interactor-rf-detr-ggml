@@ -27,5 +27,8 @@ foreach(t test_backbone_smoke test_backbone test_backbone_base test_backbone_mul
     target_link_libraries(${t} PRIVATE rfdetr)
 endforeach()
 
+add_executable(seg_cli demos/seg_cli.cpp)
+target_link_libraries(seg_cli PRIVATE rfdetr)
+
 add_executable(train_step_demo demos/train_step_demo.cpp)
 target_link_libraries(train_step_demo PRIVATE rfdetr)
