@@ -393,3 +393,18 @@ them route through at least one LayerNorm). The remaining prerequisite
 before any RF-DETR-specific training-loop code is Finding 3's deformable-
 attention backward, and only if the chosen scope needs the decoder
 trainable.
+
+## Parked
+
+The avatar fine-tune path (`pixi run -e train`, `scripts/coco_person_subset.py`,
+`scripts/finetune_seg.py`) is built and proven; the run itself is parked.
+
+- Shelved 2026-09-27: the full RFDETRSegNano avatar fine-tune (about 20
+  epochs on VRM renders plus pseudo-labels plus CC-BY COCO persons). The
+  loop works: a 1-epoch dry run on an RTX 4090 ran at 365 ms/iter median
+  with a 4.6 GiB peak, and all four `convert_*_to_gguf.py` converters and
+  `seg_cli` load its output. Not run because no vehicle on RFD 2262's board
+  needs avatar-person detection; faces are the Car. Unpark when one does.
+- Shelved 2026-09-27: publishing fine-tuned weights to Hugging Face
+  (`chibifire/...`). Nothing to publish yet. Unpark with the fine-tune
+  above.

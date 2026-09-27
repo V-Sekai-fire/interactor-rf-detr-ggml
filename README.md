@@ -72,6 +72,24 @@ pixi run -e reference python gen_reference/gen_reference_backbone.py models/rf-d
 Checkpoints download from `https://storage.googleapis.com/rfdetr/*` (see
 `docs/decisions/backbone-windowing.md`); `models/` is gitignored.
 
+## Segmenting images (`seg_cli`)
+
+`demos/seg_cli.cpp` runs RFDETRSegNano instance segmentation on
+preprocessed frames (312×312×3 float32, planar, ImageNet-normalised) and
+writes `<input>.seg` with boxes, class logits and 78×78 mask logits per
+query. It is the flat control for interactor-dress-on's gate 9.
+
+```sh
+cmake -B build -G Ninja -DGGML_OPENMP=OFF && cmake --build build --target seg_cli
+./build/seg_cli MODEL_DIR IMAGE.f32 [IMAGE.f32 ...]
+```
+
+It drives the C++ internals because the C ABI still returns boxes only
+(parked, see `docs/decisions/segmentation.md`). The avatar fine-tune
+scripts (`scripts/coco_person_subset.py`, `scripts/finetune_seg.py`,
+`pixi run -e train`) work but the full run is parked, see
+`docs/decisions/0003-training.md`.
+
 ## Weights
 
 Converted GGUF weights (F32) for every checkpoint-validated variant are
