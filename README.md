@@ -77,7 +77,8 @@ Checkpoints download from `https://storage.googleapis.com/rfdetr/*` (see
 `demos/seg_cli.cpp` runs RFDETRSegNano instance segmentation on
 preprocessed frames (312×312×3 float32, planar, ImageNet-normalised) and
 writes `<input>.seg` with boxes, class logits and 78×78 mask logits per
-query. It is the flat control for interactor-dress-on's gate 9.
+query. It is the flat control for `rfdetr_seg.elf` (`interactor-rfdetr-seg-guest`)
+in gate 9, which stays in the archived `interactor-dress-on`.
 
 ```sh
 cmake -B build -G Ninja -DGGML_OPENMP=OFF && cmake --build build --target seg_cli
