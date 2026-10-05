@@ -13,8 +13,8 @@ cmake -B build -G Ninja
 cmake --build build
 ```
 
-The Python tooling, including weight conversion to GGUF and reference generation, runs in the pixi environments that `pixi.toml` declares.
+The Python tooling, including weight conversion to GGUF and reference generation, runs in the pixi environments that `pixi.toml` declares. Upstream checkpoints are plain `.pth` files that this repository does not re-host; the XL and 2XL checkpoints are PML 1.0 rather than Apache-2.0, so they are not converted or published.
 
 ## Licence
 
-The repository does not state a licence for its own code. The vendored ggml under `third_party/` carries its own.
+There is no LICENSE file; the C API sources carry MIT SPDX headers. The vendored ggml under `third_party/` carries its own licence.
