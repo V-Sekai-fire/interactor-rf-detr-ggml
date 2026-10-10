@@ -17,4 +17,4 @@ The Python tooling, including weight conversion to GGUF and reference generation
 
 ## Licence
 
-There is no LICENSE file; the C API sources carry MIT SPDX headers. The vendored ggml under `third_party/` carries its own licence.
+MIT. See [LICENSE](LICENSE). The vendored ggml under `third_party/` carries its own licence.
