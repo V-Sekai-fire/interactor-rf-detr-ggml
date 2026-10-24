@@ -2,7 +2,7 @@
 
 **The decision this supports is not here.** RFD 107e decides how the chain deploys to an
 edge accelerator, and `weftspun/logbook`'s `logbook-edge-npu-and-the-anny-forward.md`
-carries the measurements and the two retractions behind it. RFD 1000 asks a document to
+carries the measurements and the two retractions behind it. RFD66606-1000 asks a document to
 point at its source rather than copy it, and `docs/decisions/0005-hailo-edge-compile.md`
 copied both. It was removed rather than maintained in three places.
 

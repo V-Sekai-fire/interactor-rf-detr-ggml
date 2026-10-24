@@ -403,7 +403,7 @@ The avatar fine-tune path (`pixi run -e train`, `scripts/coco_person_subset.py`,
   epochs on VRM renders plus pseudo-labels plus CC-BY COCO persons). The
   loop works: a 1-epoch dry run on an RTX 4090 ran at 365 ms/iter median
   with a 4.6 GiB peak, and all four `convert_*_to_gguf.py` converters and
-  `seg_cli` load its output. Not run because no vehicle on RFD 2262's board
+  `seg_cli` load its output. Not run because no vehicle on RFD66606-2262's board
   needs avatar-person detection; faces are the Car. Unpark when one does.
 - Shelved 2026-09-27: publishing fine-tuned weights to Hugging Face
   (`chibifire/...`). Nothing to publish yet. Unpark with the fine-tune

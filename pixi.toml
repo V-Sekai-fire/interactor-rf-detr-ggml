@@ -152,7 +152,7 @@ train = { features = ["train"], no-default-feature = true }
 # on the CPU, so a fast row is not proof the accelerator took the whole model". That cuts
 # both ways: the SLOW row is not proof either, and `rfd1122-plan.usda` carries
 # `neuralEngineUsefulForBackbone = 0` from the slow row. A native conversion can be asked
-# WHERE each operation ran, with `MLComputePlan`. RFD 1142 is the measurement.
+# WHERE each operation ran, with `MLComputePlan`. RFD66606-1142 is the measurement.
 #
 # THE TORCH PIN IS THE WHOLE REASON FOR A SECOND FEATURE. coremltools 9.0 prints "Torch
 # version 2.11.0 has not been tested with coremltools ... Torch 2.7.0 is the most recent

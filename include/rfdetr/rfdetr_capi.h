@@ -6,7 +6,7 @@
 // something a Godot module (or any non-C++ consumer) can wrap without
 // pulling ggml into its own translation units.
 //
-// Added per RFD 2242 as the precondition for
+// Added per RFD66606-2242 as the precondition for
 // entities-godot-sandbox/modules/rf_detr/.
 
 #pragma once
